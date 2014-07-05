@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+	<head lang="es">
+		<meta charset="utf-8"/>
+		<title>jquery</title>
+		<script src="estaticos/javascript/lib/jquery.min.js"></script>
+		<style>
+			.rojo {
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<button id="boton1">
+			Siguiente
+		</button>
+		<figure>
+			<img id="imagen-principal" src="estaticos/imagenes/imagen1.jpg"/>
+			<figcaption id ="nombre-paisaje">
+				Paisaje 1
+			</figcaption>
+		</figure>
+
+		<script>
+			$("#boton1").click(function() {
+				//DEntro de esta funcion va el código para manipular el DOM
+				//$(function(){
+				$("#nombre-paisaje").html("nuevo texto usando jquery!!!");
+				//$("#nombre-paisaje").attr("class","rojo");
+				$("#nombre-paisaje").addClass("rojo");
+
+				//alert($("#nombre-paisaje").attr("class"));
+				//$("#nombre-paisaje").removeClass("rojo");
+				//});
+
+				/*La animacion d JQUERY es asincrona*/
+				var imagen = $("#imagen-principal");
+				imagen.fadeOut("slow", function() {
+					//Esta es la funcion de CALLBACK
+					imagen.attr("src", "estaticos/imagenes/imagen2.jpg");
+					imagen.fadeIn("slow");
+				});
+
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,25 @@
+<h1>Hey estoy en contacto!!!!</h1>
+<h1>{{saludo}}</h1>
+
+<div id="respuesta-servidor">
+</div>
+
+<form id="contactar-forma" action="/contactar" method="post">
+	<label for="suscribir-email">Nombre:</label>
+	<input type="text" name="nombre"/>
+	<br>
+	<label for="suscribir-email">Email:</label>
+	<input type="email" name="email" pattern="[a-z]+@[a-z]+(.)[a-z]+"/>
+	<br>
+	<label for="suscribir-edad">Edad:</label>
+	<input type="number" name="edad"/>
+	<br>
+	<label for="suscribir-url">WEBpage:</label>
+	<input type="url" name="webpage"/>
+	<br>
+	<label for="suscribir-comentario">Comentarios:</label>
+	<textarea type="text" name="comentarios" required/>
+	</textarea>
+	<br>
+	<input type="submit" value="Enviar"/>
+</form>

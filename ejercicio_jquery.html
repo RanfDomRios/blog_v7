@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+	<head lang="es">
+		<meta charset="utf-8"/>
+		<title>jquery</title>
+		<script src="estaticos/javascript/lib/jquery.min.js"></script>
+		<script></script>
+	</head>
+	<body>
+		<div>
+			<img id="imagen1" src="estaticos/imagenes/imagen2_preview.jpg"/>
+			<img id="imagen2" src="estaticos/imagenes/imagen3_preview.jpg"/>
+		</div>
+		<img id="imagen3" src="estaticos/imagenes/imagen2.jpg"/>
+	<script>
+			$("#imagen1").click(function(){
+				$("#imagen3").attr("src","estaticos/imagenes/imagen2.jpg");
+			});
+			
+			$("#imagen2").click(function() {
+				$("#imagen3").attr("src","estaticos/imagenes/imagen3.jpg");
+			});
+		</script>
+	</body>
+</html>

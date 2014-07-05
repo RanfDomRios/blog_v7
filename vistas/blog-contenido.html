@@ -1,0 +1,32 @@
+<h1>Hey estoy en blog!!!!</h1>
+<h1>{{saludo}}</h1>
+
+{%if articulos.length == 0%}
+
+<h2>No hay articulos en el blog... todavia</h2>
+
+{%else%}
+{%for articulo in articulos%}
+<h2>{{articulo.titulo}}</h2>
+<p>
+	{{articulo.contenido}}
+</p>
+{%endfor%}
+
+{%endif%}
+
+<nav id="categorias">
+	<ul>
+		{%if categorias.length == 0%}
+		<p>
+			No hay categorias guardadas
+		</p>
+		{%else%}
+		{%for categoria in categorias%}
+		<li>
+			{{categoria.nombre}}
+		</li>
+		{%endfor%}
+		{%endif%}
+	</ul>
+</nav>

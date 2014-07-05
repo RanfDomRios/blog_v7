@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+	<head lang="es">
+		<meta charset="utf-8"/>
+		<title>JavaScript intro</title>
+		<script>
+		//JAVASCRIPT EN UN LENGUAJE
+		//BASADO EN PROGRAMACION FUNCIONAL
+		//BASADO EN scheme
+		//NO TIPADO
+		var nombre = "ranferi";
+		var edad = 28;
+		
+		//javascript del lado del cliente
+		//JAVASCRIPT USA EL TIPO DE DATO FLOAT -> IEE754
+		//TODOS LOS NÚMEROS SON DE TIPO FLOAT
+		//PROBLEMA DE TODOS LOS LENGUAJES, se usa big decimal >> mucha memoria!!! operaciones del tipo 0.1 + 0.2
+		
+		function calculaAreaCuadrado(lado){
+			return lado*lado;
+		}
+		
+		var calculaAreaCirculo = function(radio){
+			return 3.14*radio*radio;
+		};
+		
+		function calculaArea(miFuncion){
+			var resultado = miFuncion(5);
+			return resultado;
+		}
+		
+		//alert(calculaArea(calculaAreaCirculo));
+		
+		//alert(calculaArea(calculaAreaCuadrado));
+		
+		//primera forma de declarar un objeto en javascript
+		//HERENCIA DE PROTOTIPOS
+		//puede emular usando herencia de prototipos -> paradigma orientado a objetos
+		var persona = new Object();
+		persona.nombre = "Ranferi";
+		persona.hablar = function(){
+			alert("hola soy:"+ this.nombre);
+		};
+		
+		persona.hablar();
+
+		</script>
+	</head>
+	<body>
+		<!-- nada de contenido -->
+	</body>
+</html>
+

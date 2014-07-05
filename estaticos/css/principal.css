@@ -1,0 +1,249 @@
+/*----------------- REGLAS GENERICAS ----------------*/
+
+body {
+	font-size: 20px;
+	/*en la actualidad ponemos al final de fuentes al final para evitar FOUC*/
+	font-family: 'Arimo', sans-serif;
+}
+
+/* ------- definir imagenes y videos flexibles -------*/
+.flexible {
+	/*width:100%;*/
+	max-width: 100%;
+}
+
+figure {
+	margin: 0em;
+}
+
+/*USAMOS EL PSEUDOSELECTOR :invalid*/
+input: required invalid {
+	background: url("/estaticos/imagenes/incorrecto.png");
+	background-repeat: no-repeat;
+	background-size: 20px;
+	background-position: right top;
+}
+
+input: required valid {
+	background: url("/estaticos/imagenes/correcto.png");
+	background-repeat: no-repeat;
+	background-size: 20px;
+	background-position: right top;
+}
+/*----------------------HEADER---------------------*/
+/*SELECTOR DE ETIQUETAS*/
+header {
+	background-color: #e95644;
+	/*background-color:rba(255,0,0,0.2);*/
+	color: white;
+}
+
+header ul {
+	margin: 0px;
+}
+
+header li {
+	display: inline-block;
+	padding: 1em;
+}
+
+/*---------------------Presentacion------------------*/
+#presentacion {
+	background: url("../imagenes/portadas/portada4.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	background-attachment: fixed;
+	color: white;
+	font-size: 1.5em;
+	height: 15em;
+	line-height: 15em;
+	text-align: center;
+}
+
+/*-------------------SERVICIOS----------------------*/
+#servicios {
+	text-align: center;
+	padding-top: 3em;
+	padding-bottom: 3em;
+}
+
+/*Este es el estado inicial*/
+.servicio img {
+	-webkit-transition: 1s all ease;
+}
+/*Este es el estado final*/
+.servicio img:hover {
+	/*-webkit-trasform:rotate(45deg);*/
+	-webkit-transform: scale(1.5);
+}
+/*SELECTOR DE ID*/
+#testimonios {
+	background-color: #454545;
+	color: white;
+	border-bottom: 0.3em solid #e95644;
+	padding-top: 3em;
+	padding-bottom: 3em;
+}
+
+.testimonio {
+	display: inline-block;
+	vertical-align: top;
+	width: 49%;
+}
+/*SELECTOR DE CLASE*/
+.nombre-servicio {
+	text-align: center;
+}
+.servicio {
+	display: inline-block;
+	width: 33%;
+}
+.testimonio {
+	display: inline-block;
+	width: 49%;
+}
+/*-----------------------------FOOTER-------------------------*/
+footer {
+	background-color: rgb(52,52,52);
+	color: white;
+}
+#sociales, #suscribir {
+	display: inline-block;
+	margin-top:3em;
+	vertical-align:top;
+	width: 49%;
+}
+#suscribir-email {
+	color: black;
+	/*PREFIJOS DEL VENDEDOR*/
+	/*
+	 primer -> duracion en segundos
+
+	 segundo -> que propiedad se van a animar
+	 tercer -> que funcion de aminacion se va a utilizar
+
+	 se anima usando una CURVA DE BEZIER
+	 -lineal
+	 -ease
+	 -ease-out
+	 -ease-in
+	 */
+	-moz-transition: 1s all ease;
+	-o-transition: 1s all ease;
+	-webkit-transition: 1s all ease;
+	transition: 1s all ease;
+	width: 40%;
+}
+
+/*focus me permite saber cuando alguien está escribiendo*/
+#suscribir-email:focus {
+	width: 80%;
+}
+/*Selector de desendientes + selector de atributos*/
+#suscribir input[type = "submit"] {
+	color: black;
+}
+
+/*SELECTOR DE DECENDIENTES*/
+#sociales img {
+	margin-right: 1em;
+}
+
+/*------------------------------------*/
+#chat {
+	width: 80%;
+	background-color: #3b3b3b;
+	padding: 1.5em;
+	margin:2em auto 2em auto;	
+}
+
+#chat h1 {
+	text-align: center;
+}
+
+#chat h1, #chat h4, #chat p {
+	color: white;
+}
+
+#mensajes, #mensaje-usuario, #nombre-usuario {
+	background-color: white;
+	color:black;
+	min-height: 1em;	
+}
+
+.mensaje {
+	padding: 5px;
+	border-bottom: 1px #3b3b3b solid;
+}
+
+#chat {
+	width: 80%;
+	background-color: #3b3b3b;
+	padding: 1.5em;
+	margin:2em auto 2em auto;	
+}
+
+#chat h1 {
+	text-align: center;
+}
+
+#chat h1, #chat h4, #chat p {
+	color: white;
+}
+
+#mensajes, #mensaje-usuario, #nombre-usuario {
+	background-color: white;
+	color:black;
+	min-height: 1em;	
+}
+
+.mensaje {
+	padding: 5px;
+	border-bottom: 1px #3b3b3b solid;
+}
+
+.mensaje span {
+	color: red;
+}
+
+#mensaje-usuario {
+	padding: 0px;
+	width: 100%;
+	border-width: 0px;
+	margin-bottom: 3px;
+}
+
+
+/*------------------------ Inicia diseño Responsivo -------------------------*/
+/*
+ * max-width  de 0 al valor defoinitivo aplica las siguientes reglas
+ * min-width  del valor especificado en adelante
+ */
+
+
+@media screen and (max-width:1100px){
+	.servicio{
+		width:100%;
+		text-align:center;
+	}
+}
+
+@media screen and (max-width:900px){
+	.testimonio{
+		width:100%;
+	}
+}
+
+@media screen and (max-width:750px){
+	#sociales, #suscribir{
+		text-align: center;
+		width: 100%;
+	}
+}
+
+@media screen and (max-width:900px){
+	header li{
+		width:100%;
+	}
+}

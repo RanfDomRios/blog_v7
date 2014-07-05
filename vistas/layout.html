@@ -1,0 +1,57 @@
+<!doctype html />
+<HTML lang="es">
+	<head>
+		<title>INICIO</title>
+		<meta charset="UTF-8"/>
+		<link rel="stylesheet" href="estaticos/css/normalize.css"/>
+		<link rel="stylesheet" href="<link href='http://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>"/>
+		<link rel="stylesheet" href="estaticos/css/principal.css"/>
+	</head>
+	<body>
+		<header>
+			<nav>
+				<ul>
+					<li>
+						<a  id="link-inicio" href="/">Inicio</a>
+					</li>
+					<li>
+						<a id="link-blog" href="/blog">Blog</a>
+					</li>
+					<li>
+						<a id="link-contacto" href="/contacto">Contacto</a>
+					</li>
+					<li>
+						<a id="link-chat" href="/chat">Chat</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<div id="contenido-principal">
+			<!-- DEFINIMOS UN BLOQUE EN NUNJUCKS -->
+			{%block contenido%}
+			{%endblock%}
+		</div>
+		
+		<footer>
+			<div id="sociales">
+				<figure>
+					<figcaption>Siguenos:</figcaption>
+					<img src="estaticos/imagenes/vidrio/facebook.png"/>
+					<img src="estaticos/imagenes/vidrio/twitter.png"/>
+					<img src="estaticos/imagenes/vidrio/google.png"/>
+				</figure>
+			</div>
+			<div id="suscribir">
+				<form action="/suscribir" method="post">
+					<label for="suscribir-email">Email:</label>
+					<input id="suscribir-email" type="text" name="email"/>
+					<input type="submit" value="Enviar"/>
+				</form>
+			</div>
+		</footer>
+	<script src="/estaticos/javascript/lib/jquery.min.js"></script>
+	<script src="/estaticos/javascript/lib/history.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/estaticos/javascript/principal.js"></script>
+	</body>
+</HTML>
