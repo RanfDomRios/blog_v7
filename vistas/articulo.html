@@ -1,0 +1,27 @@
+{%extends "layout.html"%}
+
+{%block contenido%}
+
+<!-- HACER QUE ESTA SECCION FUNCIONE CON AJAX -->
+<article>
+	<h1>{{articulo.titulo}}</h1>
+	<p>
+		{{articulo.contenido}}
+	</p>
+	<section>
+		<h2>Comentarios: </h2>
+		{%for comentario in articulo.comentarios%}
+		<p>
+			{{comentario.comentario}}
+		</p>
+		{%endfor%}
+	</section>
+	
+	<ul> Categorias del Post:
+		{%for categoria in articulo.categorias%}
+			<li>{{categoria.nombre}}</li>
+		{%endfor%}
+		
+	</ul>
+</article>
+{%endblock%}

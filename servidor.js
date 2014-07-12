@@ -44,13 +44,15 @@ app.use("/estaticos", serveIndex(__dirname + "/estaticos"));
 app.use(bodyParser());
 
 rutas.configurar(app);
-modulos.configurar();
+modulos.configurar(function(){
+	//cuando ya está lista la conexion entonces ahora sí escucho peticiones de los usuarios
+	servidor.listen(8081);
+});
 
 //Habilita WEBSOCKETS en el servidor con SOCKET.IO
 //io me prermite escuchar y responder a mis clientes usando websockets
 var io = socketio.listen(servidor);
 //app.listen(8081);
-servidor.listen(8081);
 
 //cuando alguien ponga http://localhost:8081/
 

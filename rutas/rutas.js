@@ -1,3 +1,5 @@
+var modelos = require("../modulos/modulos.js");
+
 /*module.exports = DEFINIR UN MODULO*/
 module.exports.CONSTANTE1 = "valor1";
 
@@ -11,55 +13,70 @@ module.exports.configurar = function(app) {
 			parametro2 : "otro valor"
 		});
 	}
-	
-	function mostrarContacto(request,response,nombreVista){
+
+	function mostrarContacto(request, response, nombreVista) {
 		response.render(nombreVista, {
-			saludo:"contacto listo!!!"
+			saludo : "contacto listo!!!"
 		});
 	}
 
+	// /blog?PARAMETRO1=VALOR&PARAMETRO2=VALOR
+	// /blog?limite=3&offset=3
 	function mostrarBlog(request, response, nombreVista) {
 
-		//AQUI SUPUESTAMENTE YA CONSULTAMOS UNA BASE DE DATOS
-		//OBTENEMOS UN ARREGLO DE RESULTADOS
-		var articulos = [{
-			id : 1,
-			titulo : "articulo 1",
-			contenido : "contenido 1"
-		}, {
-			id : 2,
-			titulo : "articulo 2",
-			contenido : "contenido 2"
-		}, {
-			id : 3,
-			titulo : "articulo 3",
-			contenido : "contenido 3"
-		}];
+		var criteriosBusqueda = {};
+		// params = rutas dinamicas
+		// body = para datos que vienen en el post de una dorma
+		// query = para datos que vienen en el query string
+		var limite = request.query.limite;
+		var offset = request.query.offset;
 
-		var categorias = [{
-			nombre : "categoria 1"
-		}, {
-			nombre : "categoria 2"
-		}, {
-			nombre : "categoria 3"
-		}];
+		/*
+		 	Operadores Malvados
+		 		==		!=
+		   	Operadores Buenos
+		 	  	===		!===
+		*/
+		if ( typeof limite !== "undefined") {
+			//si el query string limite trae datos, se los pegamos a los criterios de busqueda
+			criteriosBusqueda.limit = limite;
+		}
 
-		//articulos= [];
+		if ( typeof offset !== "undefined") {
+			//si el query string offset trae datos, se los pegamos a los criterios de busqueda
+			criteriosBusqueda.offset = offset;
+		}
 
-		response.render(nombreVista, {
-			//ASIGNAMOS LA VARIABLE ARTICULOS a articulos
-			articulos : articulos,
-			categorias : categorias
+		// con el metodo modelos.Articulo.count().success
+		/*
+		 qué habría que agregar a la vista?
+		 y aquí en el controlador para hacer posible los links
+		 de siguiente y atrás
+		 */
+
+		modelos.Articulo.findAll(criteriosBusqueda).success(function(articulos) {
+
+			/*Cuando usan findAll, el metodo regresa un arreglo de JavaScript con todos los items*/
+			var categorias = modelos.Categoria.findAll().success(function(categorias) {
+
+				response.render(nombreVista, {
+					//ASIGNAMOS LA VARIABLE ARTICULOS a articulos
+					articulos : articulos,
+					categorias : categorias
+				});
+
+			});
+
+			//articulos= [];
 		});
-
 	}
-	
-	function mostrarChat(request,response,nombreVista){
+
+	function mostrarChat(request, response, nombreVista) {
 		response.render(nombreVista, {
-			saludo:"contacto listo!!!"
+			saludo : "contacto listo!!!"
 		});
 	}
-	
+
 
 	app.get("/", function(request, response) {
 		mostrarInicio(request, response, "index.html");
@@ -72,26 +89,26 @@ module.exports.configurar = function(app) {
 	app.get("/blog", function(request, response) {
 		mostrarBlog(request, response, "blog.html");
 	});
-		
+
 	app.get("/blog-contenido", function(request, response) {
 		mostrarBlog(request, response, "blog-contenido.html");
 	});
 
 	app.get("/contacto", function(request, response) {
-		mostrarContacto(request,response,"contacto.html");
+		mostrarContacto(request, response, "contacto.html");
 	});
-	
+
 	app.get("/contacto-contenido", function(request, response) {
-		mostrarContacto(request,response,"contacto-contenido.html");
+		mostrarContacto(request, response, "contacto-contenido.html");
 	});
-	
+
 	app.get("/chat", function(request, response) {
-		mostrarChat(request,response,"chat.html");
+		mostrarChat(request, response, "chat.html");
 	});
-	
+
 	app.get("/chat-contenido", function(request, response) {
-		mostrarChat(request,response,"chat-contenido.html");
-});
+		mostrarChat(request, response, "chat-contenido.html");
+	});
 
 	//HTTP TIENE GET, POST, TRACE, PUT, DELETE
 	//GET ENVIA LOS DATOS EN LA CABEZERA DEL PAQUETE (tam limitado)
@@ -122,5 +139,61 @@ module.exports.configurar = function(app) {
 		response.send(mensaje);
 
 	});
-	
+
+	// blog/1
+	// blogh/2
+	app.get("/blog/:articuloId([0-9]+)", function(request, response) {
+		var articuloId = request.params.articuloId;
+
+		console.log("Buscando articulo con Id:" + articuloId);
+
+		//find RECIBE COMO ARGUMENTO EL ID A BUSCAR USANDO LA LLAVE PRIMARIA DE LA TABLA
+		// ============== LA CONSULTA SE HACE DE MANERA ASINCRONA ===================
+		modelos.Articulo.find({
+			where : {
+				id : articuloId
+			},
+			include : [{
+				model : modelos.Comentarios,
+				as : "comentarios"
+			},
+			//	 por medio del mapero N-N accedo a los comentarios
+			{
+				model : modelos.Categoria,
+				as : "categorias"
+			}]
+			
+		}).success(function(articulo) {
+			//AQUI PONEMOS EL CODIGO A EJECUTAR CUANDO YA HIZO LA CONSULTA EN LA BASE
+			response.render("articulo.html", {
+				articulo : articulo
+			});
+		});
+	});
+
+	app.get("/usuario/:usuarioId([0-9]+)", function(request, response) {
+		var usuarioId = request.params.usuarioId;
+		modelos.Usuario.find({
+			where : {
+				id : usuarioId
+			},
+			include : [{
+				model : modelos.Articulo,
+				as : "articulos"
+			}]
+		}).success(function(usuario) {
+			/*
+				con lo anterior
+					usuario.articulos 
+				TIENE UN ARREGLO DE OBJETOS QUE SON LOS ARTICULOS ASOCIADOS A ESE USUARIO
+			 */ 
+			
+			//AQUI PONEMOS EL CODIGO A EJECUTAR CUANDO YA HIZO LA CONSULTA EN LA BASE
+			response.render("usuario.html", {
+				usuario : usuario
+			});
+		});
+
+	});
+
 };
